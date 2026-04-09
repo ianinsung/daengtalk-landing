@@ -488,6 +488,9 @@
       border: 1.5px solid var(--bdr);
       border-radius: 16px;
       padding: 16px 18px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
     }
     .progress-header {
       display: flex;
@@ -943,7 +946,7 @@
       <div class="progress-track">
         <div class="progress-fill" id="progress-fill" style="width:0%"></div>
       </div>
-      <p class="progress-note" id="progress-note">현재 <strong id="progress-count">0</strong>명 등록 완료</p>
+      <p class="progress-note">선착순 1,000명 한정 · 마감 임박</p>
     </div>
 
     <!-- 폼 -->
@@ -980,7 +983,6 @@
 
       const fillEl  = document.getElementById('progress-fill');
       const pctEl   = document.getElementById('progress-pct');
-      const countEl = document.getElementById('progress-count');
 
       let currentCount = 0;
 
@@ -988,7 +990,6 @@
         const now = Date.now();
         if (now >= END) return TARGET;
         const ratio = Math.max(0, (now - START) / (END - START));
-        // easeInOut으로 자연스럽게
         const eased = ratio < 0.5
           ? 2 * ratio * ratio
           : 1 - Math.pow(-2 * ratio + 2, 2) / 2;
@@ -999,7 +1000,6 @@
         const pct = Math.round(count / TOTAL * 100);
         fillEl.style.width = pct + '%';
         pctEl.textContent  = pct + '%';
-        countEl.textContent = count.toLocaleString();
       }
 
       function animateTo(target) {
