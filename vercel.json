@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/daengtalk-v7.html" }
+  ]
+}
