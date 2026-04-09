@@ -974,25 +974,29 @@
   <script>
     // ── PROGRESS BAR ─────────────────────────────────
     (function() {
-      // 캠페인 시작: 4월 9일 21:47 KST / 목표: 4월 12일 10:00 KST → 700명(70%)
-      const START   = new Date('2026-04-09T21:47:00+09:00').getTime();
-      const END     = new Date('2026-04-12T10:00:00+09:00').getTime();
-      const TARGET  = 700;
-      const TOTAL   = 1000;
+      // 4월 10일 10:00 KST 이전: 12% 고정
+      // 4월 10일 10:00 ~ 4월 12일 10:00: 12% → 70% 점진 상승
+      const FIXED_PCT = 12;
+      const RISE_START = new Date('2026-04-10T10:00:00+09:00').getTime();
+      const RISE_END   = new Date('2026-04-12T10:00:00+09:00').getTime();
+      const TOTAL      = 1000;
+      const COUNT_START = Math.round(FIXED_PCT / 100 * TOTAL); // 120
+      const COUNT_END   = 700;
 
-      const fillEl  = document.getElementById('progress-fill');
-      const pctEl   = document.getElementById('progress-pct');
+      const fillEl = document.getElementById('progress-fill');
+      const pctEl  = document.getElementById('progress-pct');
 
       let currentCount = 0;
 
       function calcBase() {
         const now = Date.now();
-        if (now >= END) return TARGET;
-        const ratio = Math.max(0, (now - START) / (END - START));
+        if (now < RISE_START) return COUNT_START;
+        if (now >= RISE_END)  return COUNT_END;
+        const ratio = (now - RISE_START) / (RISE_END - RISE_START);
         const eased = ratio < 0.5
           ? 2 * ratio * ratio
           : 1 - Math.pow(-2 * ratio + 2, 2) / 2;
-        return Math.floor(eased * TARGET);
+        return Math.floor(COUNT_START + eased * (COUNT_END - COUNT_START));
       }
 
       function render(count) {
@@ -1002,8 +1006,7 @@
       }
 
       function animateTo(target) {
-        const step = target > currentCount ? 1 : 0;
-        if (step === 0) return;
+        if (target <= currentCount) return;
         const id = setInterval(() => {
           currentCount++;
           render(currentCount);
@@ -1011,12 +1014,12 @@
         }, 18);
       }
 
-      // 초기 렌더 (0에서 시작해 천천히 채움)
+      // 초기: 0에서 시작해 12%까지 채움
       currentCount = 0;
       render(0);
       setTimeout(() => animateTo(calcBase()), 600);
 
-      // 주기적으로 1명씩 추가 (20~45초 랜덤)
+      // 주기적으로 1명씩 추가 (20~45초 랜덤, 상승 구간에서만)
       function scheduleNext() {
         const delay = (20 + Math.random() * 25) * 1000;
         setTimeout(() => {
