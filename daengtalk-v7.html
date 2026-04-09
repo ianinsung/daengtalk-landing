@@ -482,6 +482,51 @@
     }
 
     /* 프로그레스 바 */
+    .progress-wrap {
+      margin-bottom: 28px;
+      background: var(--surface);
+      border: 1.5px solid var(--bdr);
+      border-radius: 16px;
+      padding: 16px 18px;
+    }
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .progress-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--tx);
+    }
+    .progress-label strong {
+      color: var(--accent);
+    }
+    .progress-pct {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .progress-track {
+      width: 100%;
+      height: 10px;
+      background: var(--surface-inset);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #C8956C, #E8A87C);
+      border-radius: 99px;
+      transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .progress-note {
+      font-size: 12px;
+      color: var(--tx2);
+      margin-top: 8px;
+      text-align: right;
+    }
     /* 입력폼 */
     .input-wrap { margin-bottom: 12px; }
     .cta-input {
@@ -889,6 +934,18 @@
     <h2 class="cta-headline">우리 강아지도<br>말할 수 있게 🐾</h2>
     <p class="cta-sub">지금 등록하면 오픈 시 가장 먼저 이용할 수 있어요</p>
 
+    <!-- 프로그레스 바 -->
+    <div class="progress-wrap">
+      <div class="progress-header">
+        <span class="progress-label">선착순 <strong>1,000명</strong> 사전 등록</span>
+        <span class="progress-pct" id="progress-pct">0%</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+      </div>
+      <p class="progress-note" id="progress-note">현재 <strong id="progress-count">0</strong>명 등록 완료</p>
+    </div>
+
     <!-- 폼 -->
     <form id="waitlist-form" novalidate>
       <div class="input-wrap" id="input-wrap">
@@ -913,6 +970,68 @@
   <div id="toast" aria-live="polite"></div>
 
   <script>
+    // ── PROGRESS BAR ─────────────────────────────────
+    (function() {
+      // 캠페인 시작: 4월 7일 00:00 KST / 목표: 4월 12일 10:00 KST → 700명(70%)
+      const START   = new Date('2026-04-07T00:00:00+09:00').getTime();
+      const END     = new Date('2026-04-12T10:00:00+09:00').getTime();
+      const TARGET  = 700;
+      const TOTAL   = 1000;
+
+      const fillEl  = document.getElementById('progress-fill');
+      const pctEl   = document.getElementById('progress-pct');
+      const countEl = document.getElementById('progress-count');
+
+      let currentCount = 0;
+
+      function calcBase() {
+        const now = Date.now();
+        if (now >= END) return TARGET;
+        const ratio = Math.max(0, (now - START) / (END - START));
+        // easeInOut으로 자연스럽게
+        const eased = ratio < 0.5
+          ? 2 * ratio * ratio
+          : 1 - Math.pow(-2 * ratio + 2, 2) / 2;
+        return Math.floor(eased * TARGET);
+      }
+
+      function render(count) {
+        const pct = Math.round(count / TOTAL * 100);
+        fillEl.style.width = pct + '%';
+        pctEl.textContent  = pct + '%';
+        countEl.textContent = count.toLocaleString();
+      }
+
+      function animateTo(target) {
+        const step = target > currentCount ? 1 : 0;
+        if (step === 0) return;
+        const id = setInterval(() => {
+          currentCount++;
+          render(currentCount);
+          if (currentCount >= target) clearInterval(id);
+        }, 18);
+      }
+
+      // 초기 렌더 (0에서 시작해 천천히 채움)
+      currentCount = 0;
+      render(0);
+      setTimeout(() => animateTo(calcBase()), 600);
+
+      // 주기적으로 1명씩 추가 (20~45초 랜덤)
+      function scheduleNext() {
+        const delay = (20 + Math.random() * 25) * 1000;
+        setTimeout(() => {
+          const base = calcBase();
+          if (currentCount < base) {
+            currentCount++;
+            render(currentCount);
+          }
+          scheduleNext();
+        }, delay);
+      }
+      scheduleNext();
+    })();
+
     // ── HERO CHAT ANIMATION ──────────────────────────
     (function() {
       const chatBody = document.getElementById('chat-body');
