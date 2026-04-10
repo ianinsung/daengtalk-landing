@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 1200px;
+    height: 630px;
+    background: #FAF9F7;
+    font-family: 'Noto Sans KR', sans-serif;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .left {
+    flex: 1;
+    padding: 64px 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+  .logo-icon {
+    width: 36px;
+    height: 36px;
+    background: #1A1A1A;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+  .logo-text {
+    font-size: 22px;
+    font-weight: 900;
+    color: #1A1A1A;
+    letter-spacing: -0.5px;
+  }
+
+  .headline {
+    font-size: 52px;
+    font-weight: 900;
+    color: #1A1A1A;
+    letter-spacing: -2px;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .headline span { color: #C8956C; }
+
+  .sub {
+    font-size: 17px;
+    color: #6B6560;
+    line-height: 1.6;
+    margin-bottom: 32px;
+    font-weight: 400;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #1A1A1A;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 10px 20px;
+    border-radius: 100px;
+  }
+
+  .right {
+    width: 480px;
+    padding: 40px 48px 40px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .chat-card {
+    background: var(--kakao-bg, #9BB4C7);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px -10px rgba(0,0,0,.18), 0 0 0 1px rgba(0,0,0,.06);
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .chat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    background: #8AA8BC;
+    font-size: 18px;
+  }
+  .chat-name { font-size: 15px; font-weight: 700; color: #fff; }
+
+  .chat-body {
+    padding: 14px 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background: #9BB4C7;
+  }
+
+  .bubble-row { display: flex; align-items: flex-end; gap: 6px; }
+  .bubble-row.owner { flex-direction: row-reverse; }
+
+  .bubble-av {
+    width: 34px; height: 34px;
+    border-radius: 50%; overflow: hidden;
+    background: #C8956C; flex-shrink: 0;
+  }
+  .bubble-av img { width: 100%; height: 100%; object-fit: cover; }
+
+  .bubble-col { display: flex; flex-direction: column; gap: 3px; }
+  .bubble-name { font-size: 11px; font-weight: 600; color: rgba(255,255,255,.8); padding-left: 2px; }
+
+  .bubble {
+    max-width: 200px;
+    padding: 8px 12px;
+    font-size: 13px;
+    line-height: 1.5;
+    font-family: inherit;
+  }
+  .bubble-row:not(.owner) .bubble {
+    background: #fff;
+    border-radius: 0 12px 12px 12px;
+    color: #1C1C1E;
+  }
+  .bubble-row.owner .bubble {
+    background: #FEE500;
+    border-radius: 12px 0 12px 12px;
+    color: #1A1A1A;
+  }
+
+  .health-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    max-width: 200px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    margin-left: 40px;
+  }
+  .hc-header {
+    background: #EEF7EE;
+    color: #2D6A2E;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 7px 10px;
+  }
+  .hc-body { padding: 8px 10px; }
+  .hc-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    padding: 2px 0;
+    color: #1A1A1A;
+  }
+  .hc-row .alert { color: #C0392B; font-weight: 600; }
+  .hc-row .ok { color: #27AE60; font-weight: 600; }
+</style>
+</head>
+<body>
+  <div class="left">
+    <div class="logo">
+      <div class="logo-icon">🐾</div>
+      <span class="logo-text">댕톡</span>
+    </div>
+    <div class="headline">내 강아지가<br><span>카톡을 보내기</span><br>시작한다</div>
+    <div class="sub">우리 강아지를 가장 잘 아는 AI가<br>대화로 건강과 일상을 챙겨줘요.</div>
+    <div class="badge">🐾 선착순 1000명 사전 등록 중</div>
+  </div>
+
+  <div class="right">
+    <div class="chat-card">
+      <div class="chat-header">
+        <span>‹</span>
+        <span class="chat-name">몽이</span>
+        <span>☰</span>
+      </div>
+      <div class="chat-body">
+        <div class="bubble-row owner">
+          <div class="bubble">몽이 요즘 자꾸 귀를 긁어ㅠ</div>
+        </div>
+        <div class="bubble-row">
+          <div class="bubble-av"><img src="profile_thumbnail.jpg" alt="몽이"></div>
+          <div class="bubble-col">
+            <span class="bubble-name">몽이</span>
+            <div class="bubble">나 좀 가려워 🥺<br>사료 바꾼 다음부터인 것 같아</div>
+          </div>
+        </div>
+        <div class="health-card">
+          <div class="hc-header">🏥 최근 2주 건강 리포트</div>
+          <div class="hc-body">
+            <div class="hc-row"><span>구토</span><span class="alert">2회 (화, 금)</span></div>
+            <div class="hc-row"><span>귀 긁기</span><span class="alert">3일째 지속</span></div>
+            <div class="hc-row"><span>사료 변경</span><span>7일 전</span></div>
+            <div class="hc-row"><span>체중</span><span class="ok">4.2kg ✓</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
