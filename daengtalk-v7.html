@@ -1108,9 +1108,17 @@
         dots.forEach((d, i) => d.classList.toggle('active', i === idx));
       }
 
+      // 카드 인덱스를 scroll container 기준으로 직접 가운데 정렬
+      function centerCard(idx, instant) {
+        const card = cards[idx];
+        const left = card.offsetLeft - (wrap.clientWidth - card.offsetWidth) / 2;
+        wrap.scrollTo({ left: Math.max(0, left), behavior: instant ? 'instant' : 'smooth' });
+      }
+
       // 초기 활성화 — 카드 1을 가운데 정렬
       updateActive(0);
-      requestAnimationFrame(() => cards[0].scrollIntoView({ behavior: 'instant', block: 'nearest', inline: 'center' }));
+      requestAnimationFrame(() => centerCard(0, true));
+      window.addEventListener('load', () => centerCard(0, true));
 
       // 스크롤 기반 active 업데이트 (center-snap 기준 + 끝 도달 시 마지막 카드 활성화)
       let scrollTimer;
@@ -1136,7 +1144,7 @@
       });
 
       function scrollTo(idx) {
-        cards[idx].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        centerCard(idx, false);
       }
 
       // 카드 클릭 시 전환
