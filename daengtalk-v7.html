@@ -1095,67 +1095,110 @@
 
     // ── CAROUSEL ─────────────────────────────────────
     (function() {
-      const wrap  = document.getElementById('carousel-wrap');
-      const dots  = document.querySelectorAll('.dot');
-      const hint  = document.getElementById('swipe-hint');
-      const cards = document.querySelectorAll('.c-card');
+      const wrap       = document.getElementById('carousel-wrap');
+      const dotsEls    = Array.from(document.querySelectorAll('.dot'));
+      const hint       = document.getElementById('swipe-hint');
+      const origCards  = Array.from(wrap.querySelectorAll('.c-card'));
+      const N          = origCards.length;
+      const desktop    = window.innerWidth >= 1024;
 
-      let current = 0;
-
-      function updateActive(idx) {
-        current = idx;
-        cards.forEach((c, i) => c.classList.toggle('active-card', i === idx));
-        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+      // 데스크탑: 무한 순환을 위해 clone 삽입
+      // [clone-last] [real0] [real1] ... [realN-1] [clone-first]
+      if (desktop) {
+        const pre  = origCards[N - 1].cloneNode(true);
+        const post = origCards[0].cloneNode(true);
+        [pre, post].forEach(c => c.setAttribute('aria-hidden', 'true'));
+        wrap.insertBefore(pre, origCards[0]);
+        wrap.appendChild(post);
       }
 
-      // 카드 인덱스를 scroll container 기준으로 직접 가운데 정렬
-      function centerCard(idx, instant) {
-        const card = cards[idx];
-        const left = card.offsetLeft - (wrap.clientWidth - card.offsetWidth) / 2;
-        wrap.scrollTo({ left: Math.max(0, left), behavior: instant ? 'instant' : 'smooth' });
+      const slides = Array.from(wrap.querySelectorAll('.c-card'));
+      const off    = desktop ? 1 : 0; // real card i → slides[i + off]
+      let cur      = off;             // 현재 DOM 인덱스
+
+      function realOf(domIdx) { return ((domIdx - off + N) % N); }
+
+      function setActive(domIdx) {
+        cur = domIdx;
+        slides.forEach((s, i) => s.classList.toggle('active-card', i === domIdx));
+        dotsEls.forEach((d, i) => d.classList.toggle('active', i === realOf(domIdx)));
       }
 
-      // 초기 활성화 — 카드 1을 가운데 정렬
-      updateActive(0);
-      requestAnimationFrame(() => centerCard(0, true));
-      window.addEventListener('load', () => centerCard(0, true));
+      function snapTo(domIdx, instant) {
+        const s = slides[domIdx];
+        if (!s) return;
+        const left = Math.max(0, s.offsetLeft - (wrap.clientWidth - s.offsetWidth) / 2);
+        wrap.scrollTo({ left, behavior: instant ? 'instant' : 'smooth' });
+      }
 
-      // 스크롤 기반 active 업데이트 (center-snap 기준 + 끝 도달 시 마지막 카드 활성화)
-      let scrollTimer;
+      // 초기화
+      setActive(off);
+      requestAnimationFrame(() => snapTo(off, true));
+      window.addEventListener('load', () => snapTo(off, true));
+
+      // 스크롤 종료 감지 → clone에 있으면 real 카드로 순간이동
+      let scrollT, jumping = false;
       wrap.addEventListener('scroll', () => {
-        clearTimeout(scrollTimer);
-        scrollTimer = setTimeout(() => {
-          const isAtEnd = Math.abs(wrap.scrollLeft + wrap.clientWidth - wrap.scrollWidth) < 5;
-          if (isAtEnd) { updateActive(cards.length - 1); return; }
-          const wrapCenter = wrap.scrollLeft + wrap.clientWidth / 2;
-          let closestIdx = 0, closestDist = Infinity;
-          cards.forEach((card, i) => {
-            const dist = Math.abs((card.offsetLeft + card.offsetWidth / 2) - wrapCenter);
-            if (dist < closestDist) { closestDist = dist; closestIdx = i; }
+        if (jumping) return;
+        clearTimeout(scrollT);
+        scrollT = setTimeout(() => {
+          const mid = wrap.scrollLeft + wrap.clientWidth / 2;
+          let best = off, bestD = Infinity;
+          slides.forEach((s, i) => {
+            const d = Math.abs((s.offsetLeft + s.offsetWidth / 2) - mid);
+            if (d < bestD) { bestD = d; best = i; }
           });
-          updateActive(closestIdx);
-        }, 50);
+          if (desktop) {
+            if (best === 0) {
+              // 왼쪽 clone(=last card) → real last로 이동
+              jumping = true;
+              setActive(N);
+              snapTo(N, true);
+              requestAnimationFrame(() => { jumping = false; });
+            } else if (best === slides.length - 1) {
+              // 오른쪽 clone(=first card) → real first로 이동
+              jumping = true;
+              setActive(1);
+              snapTo(1, true);
+              requestAnimationFrame(() => { jumping = false; });
+            } else {
+              setActive(best);
+            }
+          } else {
+            setActive(best);
+          }
+        }, 100);
       });
 
-      // 키보드 ←→ (순환)
-      wrap.addEventListener('keydown', e => {
-        if (e.key === 'ArrowRight') scrollTo((current + 1) % cards.length);
-        if (e.key === 'ArrowLeft')  scrollTo((current - 1 + cards.length) % cards.length);
-      });
-
-      function scrollTo(idx) {
-        centerCard(idx, false);
+      // targetReal로 이동 (경계에서는 clone을 경유해 시각적 순환 연출)
+      function go(targetReal) {
+        const ri      = ((targetReal % N) + N) % N;
+        const curReal = realOf(cur);
+        let domIdx;
+        if (desktop && curReal === N - 1 && ri === 0) {
+          domIdx = slides.length - 1; // 오른쪽 clone 경유
+        } else if (desktop && curReal === 0 && ri === N - 1) {
+          domIdx = 0; // 왼쪽 clone 경유
+        } else {
+          domIdx = ri + off;
+        }
+        setActive(domIdx);
+        snapTo(domIdx, false);
       }
 
-      // 카드 클릭 시 전환
-      cards.forEach((card, i) => {
-        card.addEventListener('click', () => { if (i !== current) scrollTo(i); });
+      // 키보드 ←→
+      wrap.addEventListener('keydown', e => {
+        if (e.key === 'ArrowRight') go(realOf(cur) + 1);
+        if (e.key === 'ArrowLeft')  go(realOf(cur) - 1);
       });
 
-      // 도트 클릭 시 전환
-      dots.forEach((dot, i) => {
-        dot.addEventListener('click', () => scrollTo(i));
+      // 카드 클릭
+      slides.forEach((s, i) => {
+        s.addEventListener('click', () => { if (i !== cur) go(realOf(i)); });
       });
+
+      // 도트 클릭
+      dotsEls.forEach((d, ri) => d.addEventListener('click', () => go(ri)));
 
       // Swipe hint — sessionStorage 기준 1회
       if (!sessionStorage.getItem('swipe-hint-shown')) {
