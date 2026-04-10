@@ -862,8 +862,8 @@
   </div>
 
   <div class="carousel-wrap" tabindex="0" id="carousel-wrap">
-      <!-- 카드 1: 산책 (active-card 초기값으로 FOUC 방지) -->
-      <div class="c-card active-card">
+      <!-- 카드 1: 산책 -->
+      <div class="c-card">
         <div class="c-card-inner">
           <div class="c-messages">
             <div class="bubble-row new-sender">
@@ -894,8 +894,8 @@
         <p class="c-card-label">🐾 Walks</p>
       </div>
 
-      <!-- 카드 2: 건강 -->
-      <div class="c-card">
+      <!-- 카드 2: 건강 (active-card 초기값으로 FOUC 방지) -->
+      <div class="c-card active-card">
         <div class="c-card-inner">
           <div class="c-messages">
             <div class="bubble-row owner new-sender"><div class="bubble">Buddy keeps scratching her ear 😥</div></div>
@@ -1150,7 +1150,8 @@
 
       const slides = Array.from(wrap.querySelectorAll('.c-card'));
       const off    = desktop ? 1 : 0; // real card i → slides[i + off]
-      let cur      = off;             // current DOM index
+      const initReal = 1; // Start on Health card (real index 1)
+      let cur      = initReal + off; // current DOM index
 
       function realOf(domIdx) { return ((domIdx - off + N) % N); }
 
@@ -1168,9 +1169,9 @@
       }
 
       // Init
-      setActive(off);
-      requestAnimationFrame(() => snapTo(off, true));
-      window.addEventListener('load', () => snapTo(off, true));
+      setActive(initReal + off);
+      requestAnimationFrame(() => snapTo(initReal + off, true));
+      window.addEventListener('load', () => snapTo(initReal + off, true));
 
       // Scroll settle: if at clone, teleport to real card
       let scrollT, jumping = false;

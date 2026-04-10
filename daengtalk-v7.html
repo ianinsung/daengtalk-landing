@@ -830,8 +830,8 @@
   </div>
 
   <div class="carousel-wrap" tabindex="0" id="carousel-wrap">
-      <!-- 카드 1: 산책 (active-card 초기값으로 FOUC 방지) -->
-      <div class="c-card active-card">
+      <!-- 카드 1: 산책 -->
+      <div class="c-card">
         <div class="c-card-inner">
           <div class="c-messages">
             <div class="bubble-row new-sender">
@@ -856,8 +856,8 @@
         <p class="c-card-label">🐾 산책</p>
       </div>
 
-      <!-- 카드 2: 건강 -->
-      <div class="c-card">
+      <!-- 카드 2: 건강 (active-card 초기값으로 FOUC 방지) -->
+      <div class="c-card active-card">
         <div class="c-card-inner">
           <div class="c-messages">
             <div class="bubble-row owner new-sender"><div class="bubble">몽이 요즘 자꾸 귀를 긁어ㅠ</div></div>
@@ -1114,7 +1114,8 @@
 
       const slides = Array.from(wrap.querySelectorAll('.c-card'));
       const off    = desktop ? 1 : 0; // real card i → slides[i + off]
-      let cur      = off;             // 현재 DOM 인덱스
+      const initReal = 1; // Health 카드 (real index 1)를 첫 화면으로
+      let cur      = initReal + off; // 현재 DOM 인덱스
 
       function realOf(domIdx) { return ((domIdx - off + N) % N); }
 
@@ -1132,9 +1133,9 @@
       }
 
       // 초기화
-      setActive(off);
-      requestAnimationFrame(() => snapTo(off, true));
-      window.addEventListener('load', () => snapTo(off, true));
+      setActive(initReal + off);
+      requestAnimationFrame(() => snapTo(initReal + off, true));
+      window.addEventListener('load', () => snapTo(initReal + off, true));
 
       // 스크롤 종료 감지 → clone에 있으면 real 카드로 순간이동
       let scrollT, jumping = false;
