@@ -100,13 +100,30 @@
       line-height: 1.15;
       margin-bottom: 16px;
     }
-    .hero-sub {
+    .hero-rotating {
       font-size: clamp(18px, 5vw, 24px);
       font-weight: 800;
       letter-spacing: -0.5px;
-      color: var(--tx);
-      margin-bottom: 40px;
+      color: var(--accent);
+      margin-bottom: 12px;
+      min-height: 1.6em;
       line-height: 1.4;
+    }
+    .hero-rotating-text {
+      display: inline-block;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+    .hero-rotating-text.fade-out {
+      opacity: 0;
+      transform: translateY(-5px);
+    }
+    .hero-sub {
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: -0.2px;
+      color: var(--tx2);
+      margin-bottom: 40px;
+      line-height: 1.6;
     }
 
     /* 폰 프레임 */
@@ -734,7 +751,8 @@
       <div class="hero-inner">
         <div class="hero-text">
           <h1 class="hero-headline">내 강아지가<br>카톡을 보내기<br>시작한다</h1>
-          <p class="hero-sub">우리 강아지를 가장 잘 아는 AI가<br>대화로 관리를 도와줘요</p>
+          <div class="hero-rotating"><span class="hero-rotating-text" id="hero-rotating-text">건강 체크부터 사료 주문까지</span></div>
+          <p class="hero-sub">우리 강아지를 가장 잘 아는 AI가 대신 기억하고<br>카카오톡 한 줄이면 알아서 챙겨줘요</p>
           <a href="#cta" class="hero-cta-btn">우리 강아지도 말하게 하기</a>
           <p class="hero-caption">베타 서비스 오픈 시 선착순 1000명만 이용 가능해요.</p>
         </div>
@@ -763,8 +781,8 @@
   <section id="timeline">
     <div class="container">
       <div class="timeline-intro">
-        <h2 class="section-headline">챗봇이 아니라,<br>내 강아지를 가장 잘 아는<br>존재입니다</h2>
-        <p class="section-sub">대화할수록 더 잘 알게 돼요</p>
+        <h2 class="section-headline">대화가 쌓일수록<br>우리 강아지를 더 깊이<br>알아가는 AI예요</h2>
+        <p class="section-sub">매 대화가 맥락이 되어 기억돼요</p>
       </div>
 
       <div class="timeline">
@@ -908,14 +926,14 @@
             <div class="bubble-row owner new-sender"><div class="bubble">오 알아서 해줬어? 고마워!!</div></div>
           </div>
           <div class="flex-card">
-            <div class="flex-card-header" style="background:#F3F0FF; color:#5B3DAF;">🛒 자동 재고 관리</div>
+            <div class="flex-card-header" style="background:#F3F0FF; color:#5B3DAF;">🛒 자동 주문 완료</div>
             <div class="flex-card-body">
-              <div class="flex-card-row"><span>사료 잔여</span><span class="alert">3일치</span></div>
-              <div class="flex-card-row"><span>주문 예정</span><span>내일 도착</span></div>
+              <div class="flex-card-row"><span>주문 상품</span><span>사료 2kg</span></div>
+              <div class="flex-card-row"><span>도착 예정</span><span style="color:#27AE60;font-weight:600">내일 오후 ✓</span></div>
             </div>
           </div>
         </div>
-        <p class="c-card-label">🛍️ 소모품</p>
+        <p class="c-card-label">🛒 자동 주문</p>
       </div>
 
   </div><!-- /carousel-wrap -->
@@ -973,6 +991,26 @@
 
   <script src="progress.js"></script>
   <script>
+    // ── HERO ROTATING TEXT ───────────────────────────
+    (function() {
+      const texts = [
+        '건강 체크부터 사료 주문까지',
+        '산책 기록부터 백신 알림까지',
+        '생일부터 성장 리포트까지',
+      ];
+      let idx = 0;
+      const el = document.getElementById('hero-rotating-text');
+      if (!el) return;
+      setInterval(() => {
+        el.classList.add('fade-out');
+        setTimeout(() => {
+          idx = (idx + 1) % texts.length;
+          el.textContent = texts[idx];
+          el.classList.remove('fade-out');
+        }, 350);
+      }, 2800);
+    })();
+
     // ── HERO CHAT ANIMATION ──────────────────────────
     (function() {
       const chatBody = document.getElementById('chat-body');
