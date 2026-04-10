@@ -711,7 +711,7 @@
       /* Carousel */
       #carousel { padding: 100px 0 80px; }
       #carousel .section-headline { padding: 0; text-align: center; }
-      .carousel-wrap { padding: 16px 48px 24px; }
+      .carousel-wrap { padding: 16px calc(50% - 250px) 24px; scroll-padding-inline: calc(50% - 250px); }
       .c-card { flex: 0 0 500px; }
       .swipe-hint { display: none; }
 
@@ -1135,8 +1135,7 @@
       });
 
       function scrollTo(idx) {
-        const cardWidth = cards[idx].offsetWidth;
-        wrap.scrollTo({ left: cards[idx].offsetLeft - (wrap.clientWidth - cardWidth) / 2, behavior: 'smooth' });
+        cards[idx].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
       }
 
       // 카드 클릭 시 전환

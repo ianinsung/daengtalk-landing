@@ -6,16 +6,16 @@
   <title>Woofi — The AI That Actually Knows Your Dog</title>
   <meta name="description" content="What if your dog could finally tell you what's wrong? Woofi learns your dog's full story and speaks up when something's off. Join the waitlist." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://daengtalk-landing.vercel.app/" />
+  <meta property="og:url" content="https://woofi-landing.vercel.app/" />
   <meta property="og:title" content="Woofi — The AI That Actually Knows Your Dog" />
   <meta property="og:description" content="What if your dog could finally tell you what's wrong? Woofi learns your dog's full story and speaks up when something's off. Join the waitlist." />
-  <meta property="og:image" content="https://daengtalk-landing.vercel.app/Assets/og-image.png" />
+  <meta property="og:image" content="https://woofi-landing.vercel.app/Assets/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Woofi — The AI That Actually Knows Your Dog" />
   <meta name="twitter:description" content="What if your dog could finally tell you what's wrong? Woofi learns your dog's full story and speaks up when something's off. Join the waitlist." />
-  <meta name="twitter:image" content="https://daengtalk-landing.vercel.app/Assets/og-image.png" />
+  <meta name="twitter:image" content="https://woofi-landing.vercel.app/Assets/og-image.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
@@ -745,7 +745,7 @@
       /* Carousel */
       #carousel { padding: 100px 0 80px; }
       #carousel .section-headline { padding: 0; text-align: center; }
-      .carousel-wrap { padding: 16px 48px 24px; }
+      .carousel-wrap { padding: 16px calc(50% - 250px) 24px; scroll-padding-inline: calc(50% - 250px); }
       .c-card { flex: 0 0 500px; }
       .swipe-hint { display: none; }
 
@@ -1171,8 +1171,7 @@
       });
 
       function scrollTo(idx) {
-        const cardWidth = cards[idx].offsetWidth;
-        wrap.scrollTo({ left: cards[idx].offsetLeft - (wrap.clientWidth - cardWidth) / 2, behavior: 'smooth' });
+        cards[idx].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
       }
 
       // 카드 클릭 시 전환
