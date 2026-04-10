@@ -1108,8 +1108,9 @@
         dots.forEach((d, i) => d.classList.toggle('active', i === idx));
       }
 
-      // 초기 활성화
+      // 초기 활성화 — 카드 1을 가운데 정렬
       updateActive(0);
+      requestAnimationFrame(() => cards[0].scrollIntoView({ behavior: 'instant', block: 'nearest', inline: 'center' }));
 
       // 스크롤 기반 active 업데이트 (center-snap 기준 + 끝 도달 시 마지막 카드 활성화)
       let scrollTimer;
@@ -1128,10 +1129,10 @@
         }, 50);
       });
 
-      // 키보드 ←→
+      // 키보드 ←→ (순환)
       wrap.addEventListener('keydown', e => {
-        if (e.key === 'ArrowRight' && current < cards.length - 1) scrollTo(current + 1);
-        if (e.key === 'ArrowLeft'  && current > 0)               scrollTo(current - 1);
+        if (e.key === 'ArrowRight') scrollTo((current + 1) % cards.length);
+        if (e.key === 'ArrowLeft')  scrollTo((current - 1 + cards.length) % cards.length);
       });
 
       function scrollTo(idx) {
