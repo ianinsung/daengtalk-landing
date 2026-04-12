@@ -1084,9 +1084,11 @@
         </div>`;
 
       const messages = [
-        { side: 'owner', content: '또 구토했어',                                                                                    delay: 500  },
-        { side: 'dog',   content: '이번 달만 세 번째야 🐾 저번 두 번이랑 오늘 다 새 간식 준 날이네. 그 간식이 원인인 것 같아.', delay: 1500 },
-        { side: 'dog',   content: healthCard, isCard: true,                                                                        delay: 3000 },
+        { side: 'owner', content: '또 구토했어',                           delay: 500  },
+        { side: 'dog',   content: '이번 달만 세 번째야 🐾',                 delay: 1500 },
+        { side: 'dog',   content: '저번 두 번이랑 오늘 다 새 간식 준 날이네.', delay: 2500 },
+        { side: 'dog',   content: '그 간식이 원인인 것 같아.',               delay: 3300 },
+        { side: 'dog',   content: healthCard, isCard: true,               delay: 4200 },
       ];
 
       function makeBubble(msg, prevSide) {

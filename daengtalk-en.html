@@ -1122,9 +1122,11 @@
         </div>`;
 
       const messages = [
-        { side: 'owner', content: 'She threw up again',                                                                                              delay: 500  },
-        { side: 'dog',   content: 'Third time this month 🐾 The last two times were both treat days — same today. That treat is probably why.', delay: 1500 },
-        { side: 'dog',   content: healthCard, isCard: true,                                                                                          delay: 3000 },
+        { side: 'owner', content: 'She threw up again',                              delay: 500  },
+        { side: 'dog',   content: 'Third time this month 🐾',                        delay: 1500 },
+        { side: 'dog',   content: 'The last two times were both treat days — same today.', delay: 2500 },
+        { side: 'dog',   content: 'That treat is probably why.',                     delay: 3300 },
+        { side: 'dog',   content: healthCard, isCard: true,                          delay: 4200 },
       ];
 
       function makeBubble(msg, prevSide) {
