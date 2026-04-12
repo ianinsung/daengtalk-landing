@@ -1023,16 +1023,16 @@
       <div class="input-wrap" id="input-wrap">
         <input
           id="primary-input"
-          type="tel"
-          placeholder="010-0000-0000"
-          autocomplete="tel"
+          type="email"
+          placeholder="이메일 주소"
+          autocomplete="email"
           class="cta-input"
         />
         <p class="input-error" id="input-error" aria-live="polite"></p>
       </div>
       <button type="submit" class="cta-submit-btn" id="submit-btn">사전 등록하기</button>
       <p class="alt-input-toggle">
-        <a href="#" id="toggle-input-type">또는 이메일로 받기</a>
+        <a href="#" id="toggle-input-type">또는 전화번호로 받기</a>
       </p>
     </form>
   </div>
@@ -1274,7 +1274,7 @@
       const toggleLink = document.getElementById('toggle-input-type');
       const toast      = document.getElementById('toast');
 
-      let inputMode = 'tel'; // 'tel' | 'email'
+      let inputMode = 'email'; // 'tel' | 'email'
 
 
       // 전화번호 자동 하이픈
