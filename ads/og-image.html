@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  width: 1200px; height: 630px;
+  overflow: hidden;
+  background: #FAF9F7;
+  font-family: 'Noto Sans KR', sans-serif;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 100px;
+}
+
+.left {
+  display: flex; flex-direction: column;
+  justify-content: center; gap: 20px;
+}
+
+.logo {
+  background: #FEE500; padding: 8px 24px;
+  border-radius: 32px;
+  font-size: 28px; font-weight: 900; color: #1A1816;
+  display: inline-flex; align-items: center; gap: 8px;
+  width: fit-content;
+}
+
+.headline {
+  font-size: 56px; font-weight: 900;
+  color: #1A1816; letter-spacing: -2px;
+  line-height: 1.2;
+}
+
+.sub {
+  font-size: 22px; font-weight: 500;
+  color: #666; letter-spacing: -0.3px;
+  line-height: 1.5;
+}
+
+.badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #FFF3CD; border: 1.5px solid #FEE500;
+  border-radius: 24px; padding: 8px 20px;
+  font-size: 17px; font-weight: 700; color: #1A1816;
+  width: fit-content;
+}
+
+.right {
+  flex-shrink: 0;
+  width: 300px;
+  display: flex; flex-direction: column;
+  border-radius: 24px 24px 0 0;
+  overflow: hidden;
+  box-shadow: 0 8px 48px rgba(0,0,0,.18);
+  height: 480px;
+}
+
+.chat-header {
+  background: #F2F2F7; flex-shrink: 0;
+  padding: 14px 16px;
+  display: flex; align-items: center; gap: 10px;
+  border-bottom: 1px solid #E0E0E5;
+}
+
+.av {
+  width: 38px; height: 38px;
+  border-radius: 50%; overflow: hidden;
+  background: #FEE500; flex-shrink: 0;
+}
+.av img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.ch-name { font-size: 15px; font-weight: 700; color: #1A1816; }
+.ch-sub  { font-size: 10px; color: #8E8E93; margin-top: 1px; }
+
+.chat-body {
+  flex: 1; background: #9BB4C7;
+  padding: 16px 12px;
+  display: flex; flex-direction: column; gap: 8px;
+  overflow: hidden;
+}
+
+.row-o { display: flex; justify-content: flex-end; }
+.bub-o {
+  background: #FEE500; border-radius: 12px 3px 12px 12px;
+  padding: 9px 13px; font-size: 13px; line-height: 1.5;
+  color: #1A1816; font-weight: 500; max-width: 80%;
+}
+
+.row-d { display: flex; align-items: flex-start; gap: 7px; }
+.row-d-c { padding-left: 44px; }
+
+.d-av {
+  width: 30px; height: 30px;
+  border-radius: 50%; overflow: hidden;
+  background: #FEE500; flex-shrink: 0;
+}
+.d-av img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.d-col { display: flex; flex-direction: column; gap: 3px; max-width: 80%; }
+.d-name { font-size: 10px; font-weight: 700; color: rgba(255,255,255,.9); padding-left: 2px; }
+
+.bub-d {
+  background: white; border-radius: 3px 12px 12px 12px;
+  padding: 9px 13px; font-size: 13px; line-height: 1.5;
+  color: #1A1816; font-weight: 500; display: inline-block;
+}
+
+.card {
+  background: white; border-radius: 10px;
+  overflow: hidden; max-width: 190px; margin-top: 4px;
+}
+.c-head { background: #EEF7EE; padding: 8px 11px; font-size: 11px; font-weight: 800; color: #2D6A2E; }
+.c-row { display: flex; justify-content: space-between; padding: 6px 11px; border-bottom: 1px solid #F2F2F2; }
+.c-lbl { font-size: 10px; color: #888; }
+.c-val { font-size: 10px; font-weight: 700; color: #1A1816; }
+.c-val.r { color: #C0392B; }
+.c-foot { background: #FAFAFA; padding: 6px 11px; font-size: 9px; color: #888; }
+</style>
+</head>
+<body>
+
+<div class="left">
+  <div class="logo">🐾 댕톡</div>
+  <div class="headline">내 강아지를<br>가장 잘 아는 AI</div>
+  <div class="sub">우리 강아지 상황에 딱 맞는 답을<br>대화로 쉽게 알려줘요.</div>
+  <div class="badge">🎉 선착순 1000명 사전 등록 중</div>
+</div>
+
+<div class="right">
+  <div class="chat-header">
+    <div class="av"><img src="../Assets/profile_thumbnail.jpg" alt="몽이"></div>
+    <div>
+      <div class="ch-name">몽이</div>
+      <div class="ch-sub">반려견 AI 💛</div>
+    </div>
+  </div>
+  <div class="chat-body">
+    <div class="row-o">
+      <div class="bub-o">몽이 이상한 것 같아ㅠ 괜찮아?</div>
+    </div>
+    <div class="row-d">
+      <div class="d-av"><img src="../Assets/profile_thumbnail.jpg" alt="몽이"></div>
+      <div class="d-col">
+        <span class="d-name">몽이</span>
+        <div class="bub-d">나 좀 안 좋아 😢 엄마 어제<br>새 간식 줬잖아, 그거 때문인 것 같아</div>
+      </div>
+    </div>
+    <div class="row-d-c">
+      <div class="bub-d">비슷한 거 있어서 정리해뒀어!</div>
+    </div>
+    <div class="row-d-c">
+      <div class="card">
+        <div class="c-head">🩺 최근 몽이 건강 리포트</div>
+        <div class="c-row">
+          <span class="c-lbl">구토</span>
+          <span class="c-val r">오늘 1회</span>
+        </div>
+        <div class="c-row">
+          <span class="c-lbl">이전 구토 이력</span>
+          <span class="c-val" style="font-size:9px;">3/2 (사료 변경 다음날)</span>
+        </div>
+        <div class="c-row" style="border-bottom:none;">
+          <span class="c-lbl">체중</span>
+          <span class="c-val" style="color:#27AE60;">4.2kg (정상)</span>
+        </div>
+        <div class="c-foot">같은 패턴이 반복되면 병원 가봐!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

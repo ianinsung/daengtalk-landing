@@ -311,6 +311,35 @@
       margin-bottom: 40px;
     }
 
+    /* ── PAIN POINTS ─────────────────────────────────── */
+    #pain {
+      padding: 56px 0 48px;
+      background: #F5F0EB;
+    }
+    .pain-headline {
+      font-size: 22px; font-weight: 800;
+      color: #1A1816; letter-spacing: -0.5px;
+      text-align: center; margin-bottom: 24px;
+    }
+    .pain-list {
+      display: flex; flex-direction: column; gap: 12px;
+      max-width: 480px; margin: 0 auto 28px;
+    }
+    .pain-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      background: #fff; border-radius: 14px;
+      padding: 14px 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    }
+    .pain-icon { font-size: 20px; flex-shrink: 0; line-height: 1.4; }
+    .pain-text { font-size: 15px; color: #333; line-height: 1.5; font-weight: 500; }
+    .pain-cta {
+      display: block; text-align: center;
+      font-size: 13px; color: #6B6560;
+      line-height: 1.6;
+    }
+    .pain-cta strong { color: #C8956C; }
+
     /* ── TIMELINE ────────────────────────────────────── */
     #timeline {
       padding: 80px 0;
@@ -636,11 +665,11 @@
     }
 
     .alt-input-toggle {
-      font-size: 13px;
+      font-size: 15px;
       color: var(--tx3);
     }
     .alt-input-toggle a {
-      color: var(--tx2);
+      color: #C8956C;
       text-decoration: underline;
       cursor: pointer;
     }
@@ -802,6 +831,32 @@
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- PAIN POINTS -->
+  <section id="pain">
+    <div class="container">
+      <p class="pain-headline">Sound familiar? 🐾</p>
+      <div class="pain-list">
+        <div class="pain-item">
+          <span class="pain-icon">😰</span>
+          <span class="pain-text">Something seems off — but you can't tell if it's serious for your dog</span>
+        </div>
+        <div class="pain-item">
+          <span class="pain-icon">🍖</span>
+          <span class="pain-text">You switched their food but have no idea if it's right for your dog</span>
+        </div>
+        <div class="pain-item">
+          <span class="pain-icon">📋</span>
+          <span class="pain-text">You mean to track symptoms, but never follow through</span>
+        </div>
+        <div class="pain-item">
+          <span class="pain-icon">🌙</span>
+          <span class="pain-text">Your dog throws up at 3am and there's no one who knows your dog to ask</span>
+        </div>
+      </div>
+      <p class="pain-cta">Woofi is an AI that <strong>only knows your dog's story</strong>.<br>Ask anything — it answers from their actual history.</p>
     </div>
   </section>
 
@@ -988,7 +1043,7 @@
   <div class="container">
     <span class="cta-badge">🐾 Early Access — First 1,000 Spots</span>
     <h2 class="cta-headline">Start the conversation. 🐾</h2>
-    <p class="cta-sub">Be first to know when we go live.</p>
+    <p class="cta-sub">Only 1,000 spots available for beta. Sign up before it fills up.</p>
 
     <!-- 프로그레스 바 -->
     <div class="progress-wrap">

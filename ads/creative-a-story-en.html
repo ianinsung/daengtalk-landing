@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  width: 1080px; height: 1920px;
+  overflow: hidden;
+  background: #FAF9F7;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 280px 120px 280px;
+}
+
+.headline {
+  font-size: 64px; font-weight: 900;
+  color: #1A1816; letter-spacing: -2.5px;
+  line-height: 1.18; text-align: center;
+  flex-shrink: 0; margin-bottom: 14px;
+}
+.headline span { color: #C8956C; }
+
+.subheadline {
+  font-size: 24px; font-weight: 600;
+  color: #555; letter-spacing: -0.3px;
+  text-align: center; flex-shrink: 0;
+  margin-bottom: 36px;
+}
+
+.phone {
+  flex: 1; width: 600px;
+  display: flex; flex-direction: column;
+  border-radius: 28px 28px 0 0;
+  overflow: hidden;
+  box-shadow: 0 8px 48px rgba(0,0,0,.15);
+}
+
+.chat-header {
+  background: #fff; flex-shrink: 0;
+  padding: 16px 20px;
+  display: flex; align-items: center; gap: 12px;
+  border-bottom: 1px solid #E8E8ED;
+}
+
+.av {
+  width: 48px; height: 48px;
+  border-radius: 50%; overflow: hidden;
+  background: #C8956C; flex-shrink: 0;
+}
+.av img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.ch-name { font-size: 18px; font-weight: 700; color: #1A1816; }
+.ch-sub  { font-size: 12px; color: #8E8E93; margin-top: 2px; }
+.ch-badge {
+  margin-left: auto;
+  font-size: 12px; font-weight: 700;
+  color: #C8956C;
+  background: rgba(200,149,108,.12);
+  padding: 4px 10px; border-radius: 20px;
+}
+
+.chat-body {
+  flex: 1; background: #fff;
+  padding: 22px 18px;
+  display: flex; flex-direction: column; gap: 8px;
+  overflow: hidden;
+}
+
+.row-o { display: flex; justify-content: flex-end; }
+.bub-o {
+  background: #007AFF; border-radius: 20px 4px 20px 20px;
+  padding: 13px 17px; font-size: 17px; line-height: 1.5;
+  color: #fff; font-weight: 500; max-width: 70%;
+}
+
+.row-d   { display: flex; align-items: flex-start; gap: 10px; }
+.row-d-c { padding-left: 50px; }
+
+.d-av {
+  width: 38px; height: 38px;
+  border-radius: 50%; overflow: hidden;
+  background: #C8956C; flex-shrink: 0;
+}
+.d-av img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.d-col  { display: flex; flex-direction: column; gap: 4px; max-width: 75%; }
+.d-name { font-size: 12px; font-weight: 700; color: #8E8E93; padding-left: 2px; }
+
+.bub-d {
+  background: #E9E9EB; border-radius: 4px 20px 20px 20px;
+  padding: 13px 17px; font-size: 17px; line-height: 1.5;
+  color: #1A1816; font-weight: 500; display: inline-block;
+}
+
+.card {
+  background: white; border-radius: 14px;
+  overflow: hidden; box-shadow: 0 1px 6px rgba(0,0,0,.1);
+  max-width: 290px; margin-top: 6px;
+  border: 1px solid #F0F0F0;
+}
+.c-head {
+  background: #EEF7EE; padding: 13px 16px;
+  font-size: 15px; font-weight: 800; color: #2D6A2E;
+}
+.c-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 11px 16px; border-bottom: 1px solid #F2F2F2;
+}
+.c-lbl { font-size: 14px; color: #888; font-weight: 500; }
+.c-val { font-size: 14px; font-weight: 700; color: #1A1816; }
+.c-val.r { color: #C0392B; }
+.c-val.g { color: #27AE60; }
+.c-foot { background: #FAFAFA; padding: 11px 16px; font-size: 13px; color: #888; }
+
+.bottom {
+  flex-shrink: 0; margin-top: 40px;
+  display: flex; align-items: center; gap: 12px;
+}
+.b-logo {
+  background: #1A1A1A; padding: 8px 24px;
+  border-radius: 28px;
+  font-size: 22px; font-weight: 900; color: #fff;
+  display: flex; align-items: center; gap: 6px;
+}
+.b-status { font-size: 22px; font-weight: 600; color: #555; }
+
+.msg-item {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.msg-item.show { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<div class="headline">What if your dog could<br><span>text you back?</span></div>
+<div class="subheadline">🐾 The AI that actually knows YOUR dog.</div>
+
+<div class="phone">
+  <div class="chat-header">
+    <div class="av"><img src="../Assets/profile_thumbnail.jpg" alt="Buddy"></div>
+    <div>
+      <div class="ch-name">Buddy</div>
+      <div class="ch-sub">Your dog's AI</div>
+    </div>
+    <div class="ch-badge">Woofi</div>
+  </div>
+
+  <div class="chat-body">
+
+    <div class="msg-item row-o" id="m1">
+      <div class="bub-o">Buddy keeps scratching her ear 😥 should I be worried?</div>
+    </div>
+
+    <div class="msg-item row-d" id="m2">
+      <div class="d-av"><img src="../Assets/profile_thumbnail.jpg" alt="Buddy"></div>
+      <div class="d-col">
+        <span class="d-name">Buddy</span>
+        <div class="bub-d">Pretty itchy tbh 😅 pretty sure it's those new treats you got last week</div>
+      </div>
+    </div>
+
+    <div class="msg-item row-d-c" id="m3">
+      <div class="bub-d">Found some patterns for you!</div>
+    </div>
+
+    <div class="msg-item row-d-c" id="m4">
+      <div class="card">
+        <div class="c-head">🩺 Buddy's Health Check</div>
+        <div class="c-row">
+          <span class="c-lbl">Scratching</span>
+          <span class="c-val r">3 days in a row ⚠️</span>
+        </div>
+        <div class="c-row">
+          <span class="c-lbl">New treats</span>
+          <span class="c-val">Started 7 days ago</span>
+        </div>
+        <div class="c-row">
+          <span class="c-lbl">Vomiting</span>
+          <span class="c-val r">2x this week</span>
+        </div>
+        <div class="c-row" style="border-bottom:none;">
+          <span class="c-lbl">Weight</span>
+          <span class="c-val g">26.2 lbs ✓</span>
+        </div>
+        <div class="c-foot">Try switching back — same thing happened in March!</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="bottom">
+  <div class="b-logo">🐾 Woofi</div>
+  <span class="b-status">→ Join the Waitlist (Free)</span>
+</div>
+
+<script>
+const items = ['m1','m2','m3','m4'];
+const delays = [500, 1500, 2500, 3600];
+const PAUSE = 3000;
+
+function runAnim() {
+  items.forEach(id => {
+    const el = document.getElementById(id);
+    el.classList.remove('show');
+    el.style.transition = 'none';
+  });
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    items.forEach(id => {
+      document.getElementById(id).style.transition =
+        'opacity 0.35s ease, transform 0.35s ease';
+    });
+    delays.forEach((delay, i) => {
+      setTimeout(() => document.getElementById(items[i]).classList.add('show'), delay);
+    });
+    setTimeout(runAnim, delays[delays.length - 1] + PAUSE);
+  }));
+}
+
+runAnim();
+</script>
+</body>
+</html>

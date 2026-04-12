@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  width: 1080px; height: 1920px;
+  overflow: hidden;
+  background: #FAF9F7;
+  font-family: 'Noto Sans KR', sans-serif;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 280px 120px 280px;
+}
+
+.headline {
+  font-size: 64px; font-weight: 900;
+  color: #1A1816; letter-spacing: -2.5px;
+  line-height: 1.18; text-align: center;
+  flex-shrink: 0; margin-bottom: 14px;
+}
+.subheadline {
+  font-size: 24px; font-weight: 600;
+  color: #555; letter-spacing: -0.3px;
+  text-align: center; flex-shrink: 0;
+  margin-bottom: 36px;
+}
+
+.phone {
+  flex: 1; width: 600px;
+  display: flex; flex-direction: column;
+  border-radius: 28px 28px 0 0;
+  overflow: hidden;
+  box-shadow: 0 8px 48px rgba(0,0,0,.15);
+}
+
+.chat-header {
+  background: #F2F2F7; flex-shrink: 0;
+  padding: 16px 20px;
+  display: flex; align-items: center; gap: 12px;
+  border-bottom: 1px solid #E0E0E5;
+}
+
+.av {
+  width: 48px; height: 48px;
+  border-radius: 50%; overflow: hidden;
+  background: #FEE500; flex-shrink: 0;
+}
+.av img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.ch-name { font-size: 18px; font-weight: 700; color: #1A1816; }
+.ch-sub  { font-size: 12px; color: #8E8E93; margin-top: 2px; }
+
+.chat-body {
+  flex: 1; background: #9BB4C7;
+  padding: 22px 18px;
+  display: flex; flex-direction: column; gap: 8px;
+  overflow: hidden;
+}
+
+/* owner */
+.row-o { display: flex; justify-content: flex-end; }
+.bub-o {
+  background: #FEE500; border-radius: 14px 3px 14px 14px;
+  padding: 13px 17px; font-size: 18px; line-height: 1.5;
+  color: #1A1816; font-weight: 500; max-width: 70%;
+}
+
+/* dog */
+.row-d   { display: flex; align-items: flex-start; gap: 10px; }
+.row-d-c { padding-left: 56px; }
+
+.d-av {
+  width: 40px; height: 40px;
+  border-radius: 50%; overflow: hidden;
+  background: #FEE500; flex-shrink: 0;
+}
+.d-av img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.d-col  { display: flex; flex-direction: column; gap: 4px; max-width: 75%; }
+.d-name { font-size: 12px; font-weight: 700; color: rgba(255,255,255,.9); padding-left: 2px; }
+
+.bub-d {
+  background: white; border-radius: 3px 14px 14px 14px;
+  padding: 13px 17px; font-size: 18px; line-height: 1.5;
+  color: #1A1816; font-weight: 500; display: inline-block;
+}
+
+/* card */
+.card {
+  background: white; border-radius: 14px;
+  overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,.06);
+  max-width: 290px; margin-top: 6px;
+}
+.c-head {
+  background: #EEF7EE; padding: 13px 16px;
+  font-size: 15px; font-weight: 800; color: #2D6A2E;
+}
+.c-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 11px 16px; border-bottom: 1px solid #F2F2F2;
+}
+.c-lbl { font-size: 14px; color: #888; font-weight: 500; }
+.c-val { font-size: 14px; font-weight: 700; color: #1A1816; }
+.c-val.r { color: #C0392B; }
+.c-val.g { color: #27AE60; }
+.c-foot { background: #FAFAFA; padding: 11px 16px; font-size: 13px; color: #888; }
+
+/* bottom */
+.bottom {
+  flex-shrink: 0; margin-top: 40px;
+  display: flex; align-items: center; gap: 12px;
+}
+.b-logo {
+  background: #FEE500; padding: 7px 22px;
+  border-radius: 28px;
+  font-size: 22px; font-weight: 900; color: #1A1816;
+}
+.b-status { font-size: 22px; font-weight: 600; color: #555; }
+
+/* ── 애니메이션 ── */
+.msg-item {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.msg-item.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+</head>
+<body>
+
+<div class="headline">내 강아지가 카톡을<br>보내기 시작했다</div>
+<div class="subheadline">🐾 내 강아지 상황에 딱 맞는 답을 해주는 AI.</div>
+
+<div class="phone">
+  <div class="chat-header">
+    <div class="av"><img src="../Assets/profile_thumbnail.jpg" alt="몽이"></div>
+    <div>
+      <div class="ch-name">몽이</div>
+      <div class="ch-sub">반려견 AI 💛</div>
+    </div>
+  </div>
+
+  <div class="chat-body">
+
+    <div class="msg-item row-o" id="m1">
+      <div class="bub-o">몽이 이상한 것 같아ㅠ 괜찮아?</div>
+    </div>
+
+    <div class="msg-item row-d" id="m2">
+      <div class="d-av"><img src="../Assets/profile_thumbnail.jpg" alt="몽이"></div>
+      <div class="d-col">
+        <span class="d-name">몽이</span>
+        <div class="bub-d">나 좀 안 좋아 😢 엄마 어제<br>새 간식 줬잖아, 그거 때문인 것 같아</div>
+      </div>
+    </div>
+
+    <div class="msg-item row-d-c" id="m3">
+      <div class="bub-d">비슷한 거 있어서 정리해뒀어!</div>
+    </div>
+
+    <div class="msg-item row-d-c" id="m4">
+      <div class="card">
+        <div class="c-head">🩺 최근 몽이 건강 리포트</div>
+        <div class="c-row">
+          <span class="c-lbl">구토</span>
+          <span class="c-val r">오늘 1회</span>
+        </div>
+        <div class="c-row">
+          <span class="c-lbl">전 간식 급여</span>
+          <span class="c-val">이전</span>
+        </div>
+        <div class="c-row">
+          <span class="c-lbl">이전 구토 이력</span>
+          <span class="c-val" style="font-size:12px;text-align:right;max-width:150px;">3/2 (사료 변경 다음날)</span>
+        </div>
+        <div class="c-row" style="border-bottom:none;">
+          <span class="c-lbl">체중</span>
+          <span class="c-val g">4.2kg (정상)</span>
+        </div>
+        <div class="c-foot">같은 패턴이 반복되면 병원 가봐!</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="bottom">
+  <span style="font-size:26px">🐾</span>
+  <div class="b-logo">댕톡</div>
+  <span class="b-status">→ 선착순 1000명 사전 등록 중</span>
+</div>
+
+<script>
+const items = ['m1','m2','m3','m4'];
+const delays = [500, 1500, 2500, 3600];
+const PAUSE = 3000;
+
+function runAnim() {
+  items.forEach(id => {
+    const el = document.getElementById(id);
+    el.classList.remove('show');
+    el.style.transition = 'none';
+  });
+
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    items.forEach(id => {
+      document.getElementById(id).style.transition =
+        'opacity 0.35s ease, transform 0.35s ease';
+    });
+
+    delays.forEach((delay, i) => {
+      setTimeout(() => {
+        document.getElementById(items[i]).classList.add('show');
+      }, delay);
+    });
+
+    const total = delays[delays.length - 1] + PAUSE;
+    setTimeout(runAnim, total);
+  }));
+}
+
+runAnim();
+</script>
+</body>
+</html>

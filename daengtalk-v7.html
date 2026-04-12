@@ -291,6 +291,35 @@
       margin-bottom: 40px;
     }
 
+    /* ── PAIN POINTS ─────────────────────────────────── */
+    #pain {
+      padding: 56px 0 48px;
+      background: #F5F0EB;
+    }
+    .pain-headline {
+      font-size: 22px; font-weight: 800;
+      color: #1A1816; letter-spacing: -0.5px;
+      text-align: center; margin-bottom: 24px;
+    }
+    .pain-list {
+      display: flex; flex-direction: column; gap: 12px;
+      max-width: 480px; margin: 0 auto 28px;
+    }
+    .pain-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      background: #fff; border-radius: 14px;
+      padding: 14px 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    }
+    .pain-icon { font-size: 20px; flex-shrink: 0; line-height: 1.4; }
+    .pain-text { font-size: 15px; color: #333; line-height: 1.5; font-weight: 500; }
+    .pain-cta {
+      display: block; text-align: center;
+      font-size: 15px; color: #6B6560;
+      line-height: 1.6;
+    }
+    .pain-cta strong { color: #C8956C; }
+
     /* ── TIMELINE ────────────────────────────────────── */
     #timeline {
       padding: 80px 0;
@@ -602,11 +631,11 @@
     }
 
     .alt-input-toggle {
-      font-size: 13px;
+      font-size: 15px;
       color: var(--tx3);
     }
     .alt-input-toggle a {
-      color: var(--tx2);
+      color: #C8956C;
       text-decoration: underline;
       cursor: pointer;
     }
@@ -770,6 +799,32 @@
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- PAIN POINTS -->
+  <section id="pain">
+    <div class="container">
+      <p class="pain-headline">이런 경험 있으신가요? 🐾</p>
+      <div class="pain-list">
+        <div class="pain-item">
+          <span class="pain-icon">😰</span>
+          <span class="pain-text">갑자기 이상한데... 이게 우리 강아지한테<br>심각한 건지 모르겠어요</span>
+        </div>
+        <div class="pain-item">
+          <span class="pain-icon">🍖</span>
+          <span class="pain-text">사료 바꿨는데 우리 강아지한테<br>맞는 건지 헷갈려요</span>
+        </div>
+        <div class="pain-item">
+          <span class="pain-icon">📋</span>
+          <span class="pain-text">우리 강아지 증상 기록하려고 했는데<br>결국 또 못 했어요</span>
+        </div>
+        <div class="pain-item">
+          <span class="pain-icon">🌙</span>
+          <span class="pain-text">새벽에 구토했는데 우리 강아지 기준으로<br>물어볼 데가 없어요</span>
+        </div>
+      </div>
+      <p class="pain-cta">댕톡은 <strong>우리 강아지 이야기만 기억하는 AI</strong>예요.<br>카톡으로 물어보면, 우리 강아지 기준으로 답해줘요.</p>
     </div>
   </section>
 
@@ -950,7 +1005,7 @@
   <div class="container">
     <span class="cta-badge">🔥 베타 테스터 모집 중</span>
     <h2 class="cta-headline">우리 강아지도<br>말할 수 있게 🐾</h2>
-    <p class="cta-sub">지금 등록하면 오픈 시 가장 먼저 이용할 수 있어요</p>
+    <p class="cta-sub">베타 오픈 시 선착순 1,000명만 이용할 수 있어요. 미리 등록해두세요.</p>
 
     <!-- 프로그레스 바 -->
     <div class="progress-wrap">
